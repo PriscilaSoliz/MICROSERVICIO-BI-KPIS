@@ -31,15 +31,15 @@ for puerto in puertos:
         cur = conn.cursor()
         cur.execute("SELECT version();")
         version = cur.fetchone()[0]
-        print(f"   📌 {version.split(',')[0]}")
+        print(f"   {version.split(',')[0]}")
         
         # Verificar si tiene datos
         try:
             cur.execute("SELECT COUNT(*) FROM cita")
             citas = cur.fetchone()[0]
-            print(f"   📊 Citas en BD: {citas}")
+            print(f"   Citas en BD: {citas}")
         except:
-            print(f"   ⚠️  Tabla 'cita' no existe")
+            print(f"   Tabla 'cita' no existe")
         
         cur.close()
         conn.close()
@@ -51,14 +51,14 @@ for puerto in puertos:
     except psycopg2.OperationalError as e:
         error_msg = str(e)
         if "no existe" in error_msg or "does not exist" in error_msg:
-            print(f"   ⚠️  Puerto {puerto} activo pero BD 'historialclinico' no existe")
-            print(f"   💡 Crear BD: CREATE DATABASE historialclinico;")
+            print(f"   Puerto {puerto} activo pero BD 'historialclinico' no existe")
+            print(f"   Crear BD: CREATE DATABASE historialclinico;")
         elif "timeout" in error_msg or "refused" in error_msg:
-            print(f"   ❌ Puerto {puerto} no responde")
+            print(f"   Puerto {puerto} no responde")
         else:
-            print(f"   ❌ Error: {error_msg[:100]}")
+            print(f"   Error: {error_msg[:100]}")
     except Exception as e:
-        print(f"   ❌ Error inesperado: {e}")
+        print(f"   Error inesperado: {e}")
 
 print(f"\n{'='*60}")
 print("PRUEBA COMPLETADA")
